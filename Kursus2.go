@@ -46,37 +46,7 @@ func binarySearch(nama string) {
 
 }
 
-func binarySearchID(id string) {
-
-	low := 0
-	high := len(dataPeserta) - 1
-
-	for low <= high {
-
-		mid := (low + high) / 2
-
-		if dataPeserta[mid].BidangMinat == id {
-
-			fmt.Println("Data ditemukan")
-			fmt.Println(dataPeserta[mid])
-
-			return
-
-		} else if dataPeserta[mid].BidangMinat < id {
-
-			low = mid + 1
-
-		} else {
-
-			high = mid - 1
-		}
-	}
-
-	fmt.Println("Data tidak ditemukan")
-	return
-
-}
-func binarySearchid(id int) {
+func binarySearchID(id int) {
 
 	low := 0
 	high := len(dataPeserta) - 1
@@ -103,52 +73,6 @@ func binarySearchid(id int) {
 	}
 
 	fmt.Println("Data tidak ditemukan")
-	return
-
-}
-func descendinginsertionSortid() {
-
-	var i, j int
-	var temp Peserta
-
-	for i = 1; i < len(dataPeserta); i++ {
-
-		temp = dataPeserta[i]
-
-		j = i - 1
-
-		for j >= 0 && dataPeserta[j].ID < temp.ID {
-
-			dataPeserta[j+1] = dataPeserta[j]
-
-			j--
-		}
-
-		dataPeserta[j+1] = temp
-	}
-	return
-
-}
-func descendinginsertionSortNama() {
-
-	var i, j int
-	var temp Peserta
-
-	for i = 1; i < len(dataPeserta); i++ {
-
-		temp = dataPeserta[i]
-
-		j = i - 1
-
-		for j >= 0 && dataPeserta[j].Nama < temp.Nama {
-
-			dataPeserta[j+1] = dataPeserta[j]
-
-			j--
-		}
-
-		dataPeserta[j+1] = temp
-	}
 	return
 
 }
@@ -198,55 +122,6 @@ func insertionSortNama() {
 	return
 
 }
-func descendingselectionSortid() {
-
-	var i, j, idxMin int
-	var temp Peserta
-
-	for i = 0; i < len(dataPeserta)-1; i++ {
-
-		idxMin = i
-
-		for j = i + 1; j < len(dataPeserta); j++ {
-
-			if dataPeserta[idxMin].ID < dataPeserta[j].ID {
-
-				idxMin = j
-			}
-		}
-
-		temp = dataPeserta[idxMin]
-		dataPeserta[idxMin] = dataPeserta[i]
-		dataPeserta[i] = temp
-	}
-
-	return
-}
-func descendingselectionSortNama() {
-
-	var i, j, idxMin int
-	var temp Peserta
-
-	for i = 0; i < len(dataPeserta)-1; i++ {
-
-		idxMin = i
-
-		for j = i + 1; j < len(dataPeserta); j++ {
-
-			if dataPeserta[idxMin].Nama < dataPeserta[j].Nama {
-
-				idxMin = j
-			}
-		}
-
-		temp = dataPeserta[idxMin]
-		dataPeserta[idxMin] = dataPeserta[i]
-		dataPeserta[i] = temp
-	}
-
-	return
-}
-
 func selectionSortNama() {
 
 	var i, j, idxMin int
@@ -423,9 +298,9 @@ func sqnm(nama string) {
 	fmt.Println("Data tidak ditemukan")
 }
 
-func sqid(id string) {
+func sqid(id int) {
 	for i := 0; i < len(dataPeserta); i++ {
-		if dataPeserta[i].BidangMinat == id {
+		if dataPeserta[i].ID == id {
 			fmt.Println("Data ditemukan")
 			fmt.Println(dataPeserta[i])
 			return
@@ -485,7 +360,7 @@ func arr() {
 
 		Peserta{
 			ID:           4,
-			Nama:         "Azzam",
+			Nama:         "azzam",
 			Alamat:       "Jakarta",
 			BidangMinat:  "Data Science",
 			TanggalMasuk: "28-07-2026",
@@ -615,58 +490,46 @@ func main() {
 		case 4:
 			var pilih int
 
-			fmt.Println("1. pilih sequential berdasarkan Nama dan bidang atau minat :")
+			fmt.Println("1. pilih sequential berdasarkan Nama dan ID")
 
-			fmt.Println("2. pilih binary berdasarkan Nama dan bidang atau minat")
+			fmt.Println("2. pilih binary berdasarkan Nama dan ID")
 
 			fmt.Scan(&pilih)
 
 			switch pilih {
 			case 1:
-				var pilih int
+				var input string
 
-				fmt.Println("1.sequential by minat : ")
-				fmt.Println("2.sequential by Nama : ")
-				fmt.Scan(&pilih)
+				fmt.Print("Masukkan Nama atau ID: ")
+				fmt.Scan(&input)
 
-				switch pilih {
+				id, err := strconv.Atoi(input)
 
-				case 1:
-					var input string
-					fmt.Print("Masukkan sequential by Nama: ")
-					fmt.Scan(&input)
+				if err == nil {
 
-					sqid(input)
-				case 2:
+					sqid(id)
 
-					var input string
-					fmt.Print("Masukkan sequential by Nama: ")
-					fmt.Scan(&input)
+				} else {
 					sqnm(input)
 				}
 			case 2:
 
-				var pilih int
-				fmt.Println("1. binary by minat: ")
-				fmt.Println("2. binary by name :")
-				fmt.Scan(&pilih)
+				var input string
 
-				switch pilih {
-				case 1:
-					var input string
-					fmt.Println("masukan minat peserta: ")
-					fmt.Scan(&input)
+				fmt.Print("Masukkan Nama atau ID: ")
+				fmt.Scan(&input)
 
-					binarySearchID(input)
+				id, err := strconv.Atoi(input)
 
-				case 2:
-					var input string
-					fmt.Println("masukan nama peserta: ")
-					fmt.Scan(&input)
+				if err == nil {
+
+					binarySearchID(id)
+
+				} else {
 					binarySearch(input)
-
 				}
 			}
+
 		case 5:
 			statistik()
 
@@ -683,111 +546,50 @@ func main() {
 			switch pilih {
 
 			case 1:
-				var pilih int
 
-				fmt.Println("1. selection sort ascending by nama")
-				fmt.Println("2. selection sort ascending by id")
-				fmt.Println("3. selection plus descending by nama")
-				fmt.Println("4. selection plus descending by Id")
-				fmt.Scan(&pilih)
-				switch pilih {
-				case 1:
-
-					selectionSortNama()
-					tampil()
-					fmt.Println("data sudah di urutkan menggunakan selection")
-				case 2:
-
-					selectionSort()
-					tampil()
-					fmt.Println("data sudah di urutkan menggunakan selection")
-				case 3:
-					descendingselectionSortNama()
-					tampil()
-					fmt.Println("data sudah di urutkan menggunakan selection tapi descending")
-				case 4:
-					descendingselectionSortid()
-					tampil()
-					fmt.Println("data sudah di urutkan menggunakan selection tapi descending")
-
-				}
+				selectionSort()
+				selectionSortNama()
+				tampil()
+				fmt.Println("data sudah di urutkan menggunakan selection")
 			case 2:
-				var pilih int
-
-				fmt.Println("1. intersetion sort ascending by nama")
-				fmt.Println("2. intersetion sort ascending by id")
-				fmt.Println("3. intersetion plus descending by nama")
-				fmt.Println("4. intersetion plus descending by Id")
-				fmt.Scan(&pilih)
-				switch pilih {
-				case 1:
-					insertionSortNama()
-					tampil()
-					fmt.Println("Data sudan diurutkan menggunakn intertion")
-				case 2:
-					insertionSortId()
-					tampil()
-					fmt.Println("Data sudan diurutkan menggunakn intertion")
-
-				case 3:
-					descendinginsertionSortNama()
-					tampil()
-					fmt.Println("data sudah diurutkan secara descending by insertion")
-				case 4:
-					descendinginsertionSortid()
-					tampil()
-					fmt.Println("data sudah diurutkan secara descending by insertion")
-				}
+				insertionSortNama()
+				insertionSortId()
+				tampil()
+				fmt.Println("Data sudan diurutkan menggunakn intertion")
 
 			case 3:
-				var pilih int
-				fmt.Println("1. insertion binary by Id ")
-				fmt.Println("2. insertion binary by nama ")
-				fmt.Scan(&pilih)
+				var input string
 
-				switch pilih {
-				case 1:
-					var input int
-					fmt.Println("masukan ID : ")
-					fmt.Scan(&input)
+				fmt.Print("Masukkan Nama atau ID: ")
+				fmt.Scan(&input)
 
+				id, err := strconv.Atoi(input)
+
+				if err == nil {
+
+					binarySearchID(id)
 					selectionSort()
-					binarySearchid(input)
-					tampil()
-				case 2:
-					var input string
-					fmt.Println("masukan nama peserta: ")
-					fmt.Scan(&input)
 
+				} else {
+					binarySearch(input)
 					selectionSortNama()
-					binarySearch(input)
-					tampil()
 				}
-
 			case 4:
-				var pilih int
-				fmt.Println("1. insertion binary by ID ")
-				fmt.Println("2. insertion binary by nama")
-				fmt.Scan(&pilih)
+				var input string
 
-				switch pilih {
-				case 1:
-					var input int
-					fmt.Println("masukan Id peserta: ")
-					fmt.Scan(&input)
+				fmt.Print("Masukkan Nama atau ID: ")
+				fmt.Scan(&input)
 
+				id, err := strconv.Atoi(input)
+
+				if err == nil {
+
+					binarySearchID(id)
 					insertionSortId()
-					binarySearchid(input)
-					tampil()
 
-				case 2:
-					var input string
-					fmt.Println("masukan nama peserta: ")
-					fmt.Scan(&input)
-
-					insertionSortNama()
+				} else {
 					binarySearch(input)
-					tampil()
+					insertionSortNama()
 				}
 
 			}
